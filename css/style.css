@@ -1,0 +1,14 @@
+:root {
+    --cells-size: 50px;
+    --bs-info: #7CFFD2; 
+    --bs-info-rgb: 124,255,210;
+}
+
+.cells-container .cell {
+    width: var(--cells-size);
+    height: var(--cells-size);
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
