@@ -17,6 +17,8 @@ Al termine della partita il software deve comunicare il punteggio,
 cioè il numero di volte che l’utente ha cliccato su una cella che
 non era una bomba.
 */
+gameOver = false;
+const bombs = [];
 
 const cellsContainer = document.querySelector(".cells-container");
 
@@ -24,21 +26,44 @@ function generateGrid(horizontalCells, verticalCells) {
     const cellsTotal = horizontalCells * verticalCells;
 
     cellsContainer.style.width = `calc(var(--cells-size) * ${horizontalCells})`;
+    const bombsList = generateBombs(cellsTotal, 16);
 
+
+    console.log(bombsList);
     for (let i = 1; i <= cellsTotal; i++) {
         
         const cell = document.createElement("div");
         cell.classList.add("cell");
-    
+        cell.dataset.indice = i;
+        const cellsIndex = cell.dataset.indice;
         cellsContainer.append(cell);
-        cell.append(parseInt(i));
+        cell.append(parseInt(i));   
 
         cell.addEventListener("click", function () {
+            console.log(cellsIndex);
             this.classList.add("bg-primary");
+            
         })
     }
+    generateBombs(cellsTotal, 16);
+    console.log(bombs);
 
     return cellsTotal;
 }
 
+function generateBombs(cellsTotal, bombsNumber) {
+    
+
+    do {
+        const randomBombsNumber = Math.floor(Math.random() * cellsTotal) + 1;
+        if (!bombs.includes(randomBombsNumber)) {
+            bombs.push(randomBombsNumber);
+        }
+    } while (bombs.length < bombsNumber);
+    
+    return bombs;
+}
+
 const cellsTotal = generateGrid(10, 10);
+
+
